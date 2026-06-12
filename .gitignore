@@ -1,0 +1,85 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+.pnp.cjs
+.pnp.loader.mjs
+
+# Build output
+dist
+dist-ssr
+build
+out
+*.tsbuildinfo
+
+# Local env files
+.env
+.env.local
+.env.*.local
+*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+logs
+*.log
+
+# Editor / IDE
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Vite cache
+.vite
+.vite-inspect
+vite.config.*.timestamp-*
+
+# TypeScript
+*.tsbuildinfo
+
+# Cache directories
+.cache
+.parcel-cache
+.eslintcache
+.stylelintcache
+.turbo
+
+# Coverage / test output
+coverage
+*.lcov
+.nyc_output
+playwright-report
+test-results
+
+# npm / package managers
+.npm
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# Local backup files
+*.bak
+*.tmp
+*~

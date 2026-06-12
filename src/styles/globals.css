@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --brand-primary: #ff5a1f;
+  --px: 50vw;
+  --py: 40vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html,
+body,
+#root {
+  background-color: #070914;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  color: #f4f6fc;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: rgba(255, 90, 31, 0.35);
+  color: #ffffff;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #070914;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f2742;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2a3354;
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center gap-2 rounded-full bg-cream-50 px-5 py-3 font-display text-sm font-semibold text-ink-950 transition-all;
+  }
+  .btn-primary:hover {
+    @apply -translate-y-0.5 bg-white;
+    box-shadow: 0 14px 30px -10px rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-5 py-3 font-display text-sm font-semibold text-cream-50 transition-all;
+  }
+  .btn-secondary:hover {
+    @apply -translate-y-0.5 border-white/20 bg-white/[0.07];
+  }
+
+  .btn-ember {
+    @apply inline-flex items-center gap-2 rounded-full bg-ember-500 px-5 py-3 font-display text-sm font-semibold text-white transition-all;
+    box-shadow: 0 8px 28px -10px rgba(255, 90, 31, 0.65),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+  }
+  .btn-ember:hover {
+    @apply -translate-y-0.5 bg-ember-600;
+    box-shadow: 0 18px 40px -12px rgba(255, 90, 31, 0.85),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.18);
+  }
+
+  .card {
+    @apply relative rounded-3xl border border-white/[0.06] bg-ink-850/80 backdrop-blur-xl;
+    box-shadow: 0 1px 0 0 rgba(255, 255, 255, 0.04),
+      0 24px 60px -28px rgba(0, 0, 0, 0.6);
+  }
+  .card-hover {
+    transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+      border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+  }
+  .card-hover:hover {
+    border-color: rgba(255, 90, 31, 0.45);
+    transform: translateY(-4px);
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.06),
+      0 24px 50px -20px rgba(255, 90, 31, 0.40),
+      0 0 0 1px rgba(255, 138, 77, 0.08);
+  }
+  .card-hover::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    background: radial-gradient(
+      60% 100% at 50% 0%,
+      rgba(255, 138, 77, 0.12),
+      transparent 70%
+    );
+    opacity: 0;
+    transition: opacity 220ms ease;
+  }
+  .card-hover:hover::before {
+    opacity: 1;
+  }
+
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-cream-200;
+  }
+  .pill-ember {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-ember-500/40 bg-ember-500/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.22em] text-ember-400;
+  }
+
+  .section-title {
+    @apply font-display text-4xl font-semibold leading-[1.05] tracking-tight text-cream-50 md:text-5xl;
+  }
+
+  .accent-underline {
+    background-image: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 6%,
+      rgba(255, 90, 31, 0.35) 6%,
+      rgba(255, 90, 31, 0.35) 94%,
+      transparent 94%
+    );
+    background-position: 0 88%;
+    background-size: 100% 22%;
+    background-repeat: no-repeat;
+  }
+}
+
+.bg-paper-grid {
+  background-image: linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 56px 56px;
+  background-position: -1px -1px;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 40s linear infinite;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.pointer-aura {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      600px circle at var(--px) var(--py),
+      rgba(255, 138, 77, 0.18),
+      rgba(255, 138, 77, 0.06) 40%,
+      transparent 70%
+    ),
+    radial-gradient(
+      900px circle at var(--px) var(--py),
+      rgba(92, 176, 255, 0.10),
+      transparent 60%
+    );
+  mix-blend-mode: screen;
+  transition: background-position 60ms linear;
+  z-index: 0;
+}
