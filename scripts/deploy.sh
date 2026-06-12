@@ -32,9 +32,10 @@ ok() { printf '\033[1;32m✓\033[0m %s\n' "$*"; }
 fail() { printf '\033[1;31m✗\033[0m %s\n' "$*" >&2; exit 1; }
 
 # ── Sanity checks ───────────────────────────────────────────────────────────
+# Kustomize isn't required as a separate binary — kubectl has it built in
+# as `kubectl apply -k`. Image substitution below is done with plain sed.
 command -v docker  >/dev/null || fail "docker not on PATH"
 command -v kubectl >/dev/null || fail "kubectl not on PATH"
-command -v kustomize >/dev/null || fail "kustomize not on PATH (brew install kustomize)"
 
 current_ctx=$(kubectl config current-context)
 echo
@@ -55,14 +56,17 @@ docker push "${FULL_IMAGE}"
 docker push "${IMAGE}:latest"
 ok "Pushed"
 
-# ── Patch kustomize ─────────────────────────────────────────────────────────
-b "Patching image tag in kustomize"
-(
-  cd k8s
-  kustomize edit set image \
-    "ghcr.io/OWNER/templates-showcase=${FULL_IMAGE}"
-)
-ok "Patched"
+# ── Patch kustomization.yaml with the fresh image (plain sed) ───────────────
+# Updates the `newName:` and `newTag:` lines under the images list so the
+# deployment we apply below references the image we just pushed. -i.bak +
+# rm keeps the command portable across GNU sed (Linux) and BSD sed (macOS).
+b "Patching image tag in kustomization.yaml"
+sed -i.bak \
+  -e "s|^\([[:space:]]*\)newName:.*|\1newName: ${IMAGE}|" \
+  -e "s|^\([[:space:]]*\)newTag:.*|\1newTag: ${TAG}|" \
+  k8s/kustomization.yaml
+rm -f k8s/kustomization.yaml.bak
+ok "Patched (newName=${IMAGE}, newTag=${TAG})"
 
 # ── Apply ───────────────────────────────────────────────────────────────────
 b "Applying manifests to ${NAMESPACE}"

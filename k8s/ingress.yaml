@@ -14,10 +14,10 @@ spec:
   ingressClassName: nginx # change to "traefik", "contour", etc. if you use a different controller
   tls:
     - hosts:
-        - templates.example.com # ← change me
+        - templates.helloworlds.co.in
       secretName: templates-showcase-tls
   rules:
-    - host: templates.example.com # ← change me
+    - host: templates.helloworlds.co.in
       http:
         paths:
           - path: /
