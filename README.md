@@ -182,3 +182,4 @@ Logos under 2 MB are stored as base64 inside the JSON.
 ## Browser support
 
 Modern evergreens (Chrome, Firefox, Safari, Edge). The crypto template needs WebGL 2; if it fails the page falls back to a static painted gradient via the per-Canvas `ErrorBoundary`.
+
