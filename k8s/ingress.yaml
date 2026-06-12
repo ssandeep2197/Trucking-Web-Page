@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: templates-showcase
+  labels:
+    app.kubernetes.io/name: templates-showcase
+  annotations:
+    # cert-manager — drop or change the issuer name if you use something else.
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    # Sensible defaults for an nginx ingress controller.
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+spec:
+  ingressClassName: nginx # change to "traefik", "contour", etc. if you use a different controller
+  tls:
+    - hosts:
+        - templates.example.com # ← change me
+      secretName: templates-showcase-tls
+  rules:
+    - host: templates.example.com # ← change me
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: templates-showcase
+                port:
+                  number: 80

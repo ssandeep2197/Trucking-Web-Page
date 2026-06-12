@@ -1,0 +1,20 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+# Change this if you want to deploy into a dedicated namespace
+# (and `kubectl create namespace templates-showcase` first).
+namespace: default
+
+resources:
+  - deployment.yaml
+  - service.yaml
+  - ingress.yaml
+
+commonLabels:
+  app.kubernetes.io/part-of: templates-showcase
+
+# CI replaces this with the freshly built image tag.
+images:
+  - name: ghcr.io/OWNER/templates-showcase
+    newName: ghcr.io/OWNER/templates-showcase
+    newTag: latest
